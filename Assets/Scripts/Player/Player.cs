@@ -6,23 +6,32 @@ public class Player : MonoBehaviour
 
     public Rigidbody2D myRigidBody;
     public float speed;
+    public float speedRun;
     public float jumpForce;
     public Vector2 friction;
+
+    private float _currentSpeed;
 
     #endregion
 
     private void HandleMovement()
     {
+        // Running movement
+        if (Input.GetKey(KeyCode.LeftShift))
+            _currentSpeed = speedRun;
+        else
+            _currentSpeed = speed;
+
         // Left/Right movement
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             //myRigidBody.MovePosition(myRigidBody.position - velocity * Time.deltaTime);
-            myRigidBody.linearVelocity = new Vector2(-speed, myRigidBody.linearVelocity.y);
+            myRigidBody.linearVelocity = new Vector2(-_currentSpeed, myRigidBody.linearVelocity.y);
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             //myRigidBody.MovePosition(myRigidBody.position + velocity * Time.deltaTime);
-            myRigidBody.linearVelocity = new Vector2(speed, myRigidBody.linearVelocity.y);
+            myRigidBody.linearVelocity = new Vector2(_currentSpeed, myRigidBody.linearVelocity.y);
         }
 
         // Left/Right friction
