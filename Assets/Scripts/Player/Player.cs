@@ -1,16 +1,22 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
     #region VARIABLES
 
+    [Header("Speed")]
     public Rigidbody2D myRigidBody;
     public float speed;
     public float speedRun;
     public float jumpForce;
     public Vector2 friction;
-
     private float _currentSpeed;
+
+    [Header("Animation")]
+    public float jumpScaleY;
+    public float jumpScaleX;
+    public float animationDuration;
 
     #endregion
 
@@ -50,7 +56,16 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             myRigidBody.linearVelocity = Vector2.up * jumpForce;
+
+            DOTween.Kill(myRigidBody.transform);
+            HandleScaleJump();
         }
+    }
+
+    private void HandleScaleJump()
+    {
+        myRigidBody.transform.DOScaleY(jumpScaleY, animationDuration).SetLoops(2, LoopType.Yoyo);
+        myRigidBody.transform.DOScaleX(jumpScaleX, animationDuration).SetLoops(2, LoopType.Yoyo);
     }
 
     private void Update()
