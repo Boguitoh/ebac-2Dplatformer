@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class Player : MonoBehaviour
 {
@@ -14,9 +15,11 @@ public class Player : MonoBehaviour
     private float _currentSpeed;
 
     [Header("Animation")]
+    public Vector2 initialSize;
     public float jumpScaleY;
     public float jumpScaleX;
     public float animationDuration;
+    public Ease ease;
 
     #endregion
 
@@ -57,15 +60,17 @@ public class Player : MonoBehaviour
         {
             myRigidBody.linearVelocity = Vector2.up * jumpForce;
 
+            myRigidBody.transform.localScale = initialSize;
             DOTween.Kill(myRigidBody.transform);
+            
             HandleScaleJump();
         }
     }
 
     private void HandleScaleJump()
     {
-        myRigidBody.transform.DOScaleY(jumpScaleY, animationDuration).SetLoops(2, LoopType.Yoyo);
-        myRigidBody.transform.DOScaleX(jumpScaleX, animationDuration).SetLoops(2, LoopType.Yoyo);
+        myRigidBody.transform.DOScaleY(jumpScaleY, animationDuration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+        myRigidBody.transform.DOScaleX(jumpScaleX, animationDuration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
     }
 
     private void Update()
