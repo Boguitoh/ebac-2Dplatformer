@@ -8,18 +8,26 @@ public class Player : MonoBehaviour
 
     [Header("Speed")]
     public Rigidbody2D myRigidBody;
-    public float speed;
-    public float speedRun;
+    public float speedNormal;
+    public float speedRunning;
     public float jumpForce;
     public Vector2 friction;
     private float _currentSpeed;
 
-    [Header("Animation")]
+    [Header("Animation Scaling")]
     public Vector2 initialSize;
     public float jumpScaleY;
     public float jumpScaleX;
-    public float animationDuration;
-    public Ease ease;
+    public float jumpDuration;
+    public Ease jumpEase;
+    public float swipeDuration;
+    public float runningAccel;
+    
+    [Header("Animation Change")]
+    public string boolRun = "Run";
+    public Animator animator;
+
+
 
     #endregion
 
@@ -27,20 +35,39 @@ public class Player : MonoBehaviour
     {
         // Running movement
         if (Input.GetKey(KeyCode.LeftShift))
-            _currentSpeed = speedRun;
+        {
+            _currentSpeed = speedRunning;
+            animator.speed = runningAccel;
+        }
         else
-            _currentSpeed = speed;
+        {
+            _currentSpeed = speedNormal;
+            animator.speed = 1;
+        }
 
         // Left/Right movement
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            //myRigidBody.MovePosition(myRigidBody.position - velocity * Time.deltaTime);
             myRigidBody.linearVelocity = new Vector2(-_currentSpeed, myRigidBody.linearVelocity.y);
+            if(myRigidBody.transform.localScale.x != -1)
+            {
+                myRigidBody.transform.DOScaleX(-1, swipeDuration);
+            }
+            animator.SetBool(boolRun, true);
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
-            //myRigidBody.MovePosition(myRigidBody.position + velocity * Time.deltaTime);
             myRigidBody.linearVelocity = new Vector2(_currentSpeed, myRigidBody.linearVelocity.y);
+            if(myRigidBody.transform.localScale.x != 1)
+            {
+                myRigidBody.transform.DOScaleX(1, swipeDuration);
+            }
+            animator.SetBool(boolRun, true);
+        }
+
+        else
+        {
+            animator.SetBool(boolRun, false);
         }
 
         // Left/Right friction
@@ -62,15 +89,17 @@ public class Player : MonoBehaviour
 
             myRigidBody.transform.localScale = initialSize;
             DOTween.Kill(myRigidBody.transform);
-            
+
+            animator.SetTrigger("Jump");
+
             HandleScaleJump();
         }
     }
 
     private void HandleScaleJump()
     {
-        myRigidBody.transform.DOScaleY(jumpScaleY, animationDuration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
-        myRigidBody.transform.DOScaleX(jumpScaleX, animationDuration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+        myRigidBody.transform.DOScaleY(jumpScaleY, jumpDuration).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
+        myRigidBody.transform.DOScaleX(jumpScaleX, jumpDuration).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
     }
 
     private void Update()
