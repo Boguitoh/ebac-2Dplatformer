@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CollectibleBase : MonoBehaviour
@@ -12,6 +13,14 @@ public class CollectibleBase : MonoBehaviour
         }
     }
 
-    protected virtual void Collect();
+    protected virtual void Collect()
+    {
+        gameObject.SetActive(false);
+        OnCollect();
+    }
 
+    protected virtual void OnCollect()
+    {
+
+    }
 }

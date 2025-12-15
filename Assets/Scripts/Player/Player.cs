@@ -8,8 +8,8 @@ public class Player : MonoBehaviour
 
     [Header("Speed")]
     public Rigidbody2D myRigidBody;
-    public float speedNormal;
-    public float speedRunning;
+    public float speedWalk;
+    public float speedSprint;
     public float jumpForce;
     public Vector2 friction;
     private float _currentSpeed;
@@ -36,12 +36,12 @@ public class Player : MonoBehaviour
         // Running movement
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            _currentSpeed = speedRunning;
+            _currentSpeed = speedSprint;
             animator.speed = runningAccel;
         }
         else
         {
-            _currentSpeed = speedNormal;
+            _currentSpeed = speedWalk;
             animator.speed = 1;
         }
 
