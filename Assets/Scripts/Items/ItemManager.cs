@@ -1,6 +1,7 @@
 using UnityEngine;
+using ebac.Core.Singleton;
 
-public class ItemManager : MonoBehaviour
+public class ItemManager : Singleton<ItemManager>
 {
     public int coins;
 
