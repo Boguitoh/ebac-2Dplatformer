@@ -2,7 +2,7 @@
 - Project name: ebac-2Dplatformer
 - Unity version: Unity 6000.0.58f2
 - Active game object:
-  - Name: Environment
-  - Tag: Untagged
+  - Name: PLAYER
+  - Tag: Player
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
