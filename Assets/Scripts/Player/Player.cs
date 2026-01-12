@@ -5,11 +5,12 @@ using System;
 public class Player : MonoBehaviour
 {
     #region VARIABLES
+    public Rigidbody2D myRigidBody;
+    public HealthBase healthBase;
 
     [Header("Speed")]
-    public Rigidbody2D myRigidBody;
-    public float speedNormal;
-    public float speedRunning;
+    public float speedWalk;
+    public float speedSprint;
     public float jumpForce;
     public Vector2 friction;
     private float _currentSpeed;
@@ -26,22 +27,45 @@ public class Player : MonoBehaviour
     [Header("Animation Change")]
     public string boolRun = "Run";
     public Animator animator;
-
+    public string triggerAttack = "Attack";
+    public string triggerDeath = "Death";
 
 
     #endregion
+
+    private void Awake()
+    {
+        if (healthBase != null)
+            healthBase.OnKill += OnEnemyKill;
+    }
+
+    private void OnEnemyKill()
+    {
+        healthBase.OnKill -= OnEnemyKill;
+        PlayDeathAnimation();
+    }
+
+    private void PlayAttackAnimation()
+    {
+        animator.SetTrigger(triggerAttack);
+    }
+
+    private void PlayDeathAnimation()
+    {
+        animator.SetTrigger(triggerDeath);
+    }
 
     private void HandleMovement()
     {
         // Running movement
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            _currentSpeed = speedRunning;
+            _currentSpeed = speedSprint;
             animator.speed = runningAccel;
         }
         else
         {
-            _currentSpeed = speedNormal;
+            _currentSpeed = speedWalk;
             animator.speed = 1;
         }
 
@@ -106,5 +130,10 @@ public class Player : MonoBehaviour
     {
         HandleJump();
         HandleMovement();
+    }
+
+    public void DestroyMe()
+    {
+        Destroy(gameObject);
     }
 }
