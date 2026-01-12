@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 
 public class HealthBase : MonoBehaviour
 {
     #region VARIABLES
+
+    public Action OnKill;
 
     public int startingLife;
     private int _currentLife;
@@ -50,5 +53,9 @@ public class HealthBase : MonoBehaviour
         _isDead = true;
         if (destroyOnKill)
             Destroy(gameObject, delayToKill);
+
+        if (OnKill != null)
+            OnKill.Invoke();
+        // OnKill?.Invoke();
     }
 }
