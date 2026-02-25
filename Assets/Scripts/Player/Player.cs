@@ -17,9 +17,12 @@ public class Player : MonoBehaviour
 
     [Header("Animation Scaling")]
     public Vector2 initialSize;
-    public float jumpScaleY;
-    public float jumpScaleX;
-    public float jumpDuration;
+    //public float soJumpScaleY;
+    //public float soJumpScaleX;
+    //public float soJumpDuration;
+    public SO_Float soJumpScaleY;
+    public SO_Float soJumpScaleX;
+    public SO_Float soJumpDuration;
     public Ease jumpEase;
     public float swipeDuration;
     public float runningAccel;
@@ -122,8 +125,8 @@ public class Player : MonoBehaviour
 
     private void HandleScaleJump()
     {
-        myRigidBody.transform.DOScaleY(jumpScaleY, jumpDuration).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
-        myRigidBody.transform.DOScaleX(jumpScaleX, jumpDuration).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
+        myRigidBody.transform.DOScaleY(soJumpScaleY.value, soJumpDuration.value).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
+        myRigidBody.transform.DOScaleX(soJumpScaleX.value, soJumpDuration.value).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
     }
 
     private void Update()
