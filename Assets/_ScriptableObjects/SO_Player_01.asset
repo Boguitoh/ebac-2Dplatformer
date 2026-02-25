@@ -16,9 +16,10 @@ MonoBehaviour:
   speedSprint: 25
   jumpForce: 30
   friction: {x: 0.65, y: 0}
+  initialSize: {x: 1, y: 1}
   soJumpScaleY: 0.6
   soJumpScaleX: 1.3
-  soJumpDuration: 0.1
+  soJumpDuration: 0.2
   jumpEase: 29
   swipeDuration: 0.2
   runningAccel: 1.75

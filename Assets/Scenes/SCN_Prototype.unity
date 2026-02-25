@@ -874,11 +874,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 277516590}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e82ae84e1922a7f49b4aa085e9e7c29e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c74f125119fdf74e97fd801c026b824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemManager: {fileID: 534514857}
-  coinCount: {fileID: 1478941863}
+  compareTag: Player
 --- !u!1 &303884140
 GameObject:
   m_ObjectHideFlags: 0
@@ -2303,21 +2302,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRigidBody: {fileID: 874819656}
   healthBase: {fileID: 874819661}
-  speedWalk: 15
-  speedSprint: 25
-  jumpForce: 30
-  friction: {x: 0.65, y: 0}
-  initialSize: {x: 1, y: 1}
-  jumpScaleY: 1.3
-  jumpScaleX: 0.7
-  jumpDuration: 0.1
-  jumpEase: 29
-  swipeDuration: 0.2
-  runningAccel: 1.75
-  boolRun: Run
+  sOPlayerSetup: {fileID: 11400000, guid: 94f215419fc4c9940925ab0314930b7e, type: 2}
   animator: {fileID: 1392790991}
-  triggerAttack: Attack
-  triggerDeath: Death
 --- !u!114 &874819661
 MonoBehaviour:
   m_ObjectHideFlags: 0
