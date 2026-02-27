@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public HealthBase healthBase;
 
     [Header("Setup")]
-    public SOPlayerSetup sOPlayerSetup;
+    public SOPlayerSetup SOPlayerSetup;
 
     private float _currentSpeed;
     public Animator animator;
@@ -56,12 +56,12 @@ public class Player : MonoBehaviour
 
     private void PlayAttackAnimation()
     {
-        animator.SetTrigger(sOPlayerSetup.triggerAttack);
+        animator.SetTrigger(SOPlayerSetup.triggerAttack);
     }
 
     private void PlayDeathAnimation()
     {
-        animator.SetTrigger(sOPlayerSetup.triggerDeath);
+        animator.SetTrigger(SOPlayerSetup.triggerDeath);
     }
 
     private void HandleMovement()
@@ -69,12 +69,12 @@ public class Player : MonoBehaviour
         // Running movement
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            _currentSpeed = sOPlayerSetup.speedSprint;
-            animator.speed = sOPlayerSetup.runningAccel;
+            _currentSpeed = SOPlayerSetup.speedSprint;
+            animator.speed = SOPlayerSetup.runningAccel;
         }
         else
         {
-            _currentSpeed = sOPlayerSetup.speedWalk;
+            _currentSpeed = SOPlayerSetup.speedWalk;
             animator.speed = 1;
         }
 
@@ -84,33 +84,33 @@ public class Player : MonoBehaviour
             myRigidBody.linearVelocity = new Vector2(-_currentSpeed, myRigidBody.linearVelocity.y);
             if(myRigidBody.transform.localScale.x != -1)
             {
-                myRigidBody.transform.DOScaleX(-1, sOPlayerSetup.swipeDuration);
+                myRigidBody.transform.DOScaleX(-1, SOPlayerSetup.swipeDuration);
             }
-            animator.SetBool(sOPlayerSetup.boolRun, true);
+            animator.SetBool(SOPlayerSetup.boolRun, true);
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             myRigidBody.linearVelocity = new Vector2(_currentSpeed, myRigidBody.linearVelocity.y);
             if(myRigidBody.transform.localScale.x != 1)
             {
-                myRigidBody.transform.DOScaleX(1, sOPlayerSetup.swipeDuration);
+                myRigidBody.transform.DOScaleX(1, SOPlayerSetup.swipeDuration);
             }
-            animator.SetBool(sOPlayerSetup.boolRun, true);
+            animator.SetBool(SOPlayerSetup.boolRun, true);
         }
 
         else
         {
-            animator.SetBool(sOPlayerSetup.boolRun, false);
+            animator.SetBool(SOPlayerSetup.boolRun, false);
         }
 
         // Left/Right friction
         if (myRigidBody.linearVelocity.x > 0)
         {
-            myRigidBody.linearVelocity -= sOPlayerSetup.friction;
+            myRigidBody.linearVelocity -= SOPlayerSetup.friction;
         }
         else if (myRigidBody.linearVelocity.x < 0)
         {
-            myRigidBody.linearVelocity += sOPlayerSetup.friction;
+            myRigidBody.linearVelocity += SOPlayerSetup.friction;
         }
     }
 
@@ -118,9 +118,9 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            myRigidBody.linearVelocity = Vector2.up * sOPlayerSetup.jumpForce;
+            myRigidBody.linearVelocity = Vector2.up * SOPlayerSetup.jumpForce;
 
-            myRigidBody.transform.localScale = sOPlayerSetup.initialSize;
+            myRigidBody.transform.localScale = SOPlayerSetup.initialSize;
             DOTween.Kill(myRigidBody.transform);
 
             animator.SetTrigger("Jump");
@@ -131,8 +131,8 @@ public class Player : MonoBehaviour
 
     private void HandleScaleJump()
     {
-        myRigidBody.transform.DOScaleY(sOPlayerSetup.soJumpScaleY, sOPlayerSetup.soJumpDuration).SetLoops(2, LoopType.Yoyo).SetEase(sOPlayerSetup.jumpEase);
-        myRigidBody.transform.DOScaleX(sOPlayerSetup.soJumpScaleX, sOPlayerSetup.soJumpDuration).SetLoops(2, LoopType.Yoyo).SetEase(sOPlayerSetup.jumpEase);
+        myRigidBody.transform.DOScaleY(SOPlayerSetup.soJumpScaleY, SOPlayerSetup.soJumpDuration).SetLoops(2, LoopType.Yoyo).SetEase(SOPlayerSetup.jumpEase);
+        myRigidBody.transform.DOScaleX(SOPlayerSetup.soJumpScaleX, SOPlayerSetup.soJumpDuration).SetLoops(2, LoopType.Yoyo).SetEase(SOPlayerSetup.jumpEase);
     }
 
     private void Update()

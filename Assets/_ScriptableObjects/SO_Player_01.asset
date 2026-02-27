@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedWalk: 15
   speedSprint: 25
-  jumpForce: 30
+  jumpForce: 35
   friction: {x: 0.65, y: 0}
   initialSize: {x: 1, y: 1}
   soJumpScaleY: 0.6
