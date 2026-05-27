@@ -119,11 +119,12 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             myRigidBody.linearVelocity = Vector2.up * SOPlayerSetup.jumpForce;
+            //myRigidBody.transform.localScale = Vector2.one;
 
-            myRigidBody.transform.localScale = SOPlayerSetup.initialSize;
+            //myRigidBody.transform.localScale = SOPlayerSetup.initialSize;
             DOTween.Kill(myRigidBody.transform);
 
-            animator.SetTrigger("Jump");
+            //animator.SetTrigger("Jump");
 
             HandleScaleJump();
         }
@@ -132,7 +133,7 @@ public class Player : MonoBehaviour
     private void HandleScaleJump()
     {
         myRigidBody.transform.DOScaleY(SOPlayerSetup.soJumpScaleY, SOPlayerSetup.soJumpDuration).SetLoops(2, LoopType.Yoyo).SetEase(SOPlayerSetup.jumpEase);
-        myRigidBody.transform.DOScaleX(SOPlayerSetup.soJumpScaleX, SOPlayerSetup.soJumpDuration).SetLoops(2, LoopType.Yoyo).SetEase(SOPlayerSetup.jumpEase);
+        //myRigidBody.transform.DOScaleX(SOPlayerSetup.soJumpScaleX, SOPlayerSetup.soJumpDuration).SetLoops(2, LoopType.Yoyo).SetEase(SOPlayerSetup.jumpEase);
     }
 
     private void Update()
