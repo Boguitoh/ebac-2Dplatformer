@@ -14,12 +14,17 @@ public class Player : MonoBehaviour
     private float _currentSpeed;
     public Animator animator;
 
+    [Header("Jump Collision Check")]
+    public Collider2D playerCollider;
+    public float groundDistance;
+    public float groundDiff = .1f;
+    public ParticleSystem jumpVFX;
+
     /*[Header("Speed")]
     public float speedWalk;
     public float speedSprint;
     public float jumpForce;
     public Vector2 friction;*/
-
 
     /*[Header("Animation Scaling")]
     public Vector2 initialSize;
@@ -38,14 +43,22 @@ public class Player : MonoBehaviour
     public string triggerAttack = "Attack";
     public string triggerDeath = "Death";*/
 
-
-
     #endregion
 
     private void Awake()
     {
         if (healthBase != null)
             healthBase.OnKill += OnEnemyKill;
+        if (playerCollider != null)
+        {
+            groundDistance = playerCollider.bounds.extents.y;
+        }
+    }
+
+    private bool IsGrounded()
+    {
+        Debug.DrawRay(transform.position, -Vector2.up, Color.magenta, groundDistance + groundDiff);
+        return Physics2D.Raycast(transform.position, -Vector2.up, groundDistance + groundDiff);
     }
 
     private void OnEnemyKill()
@@ -116,7 +129,7 @@ public class Player : MonoBehaviour
 
     private void HandleJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {
             myRigidBody.linearVelocity = Vector2.up * SOPlayerSetup.jumpForce;
             //myRigidBody.transform.localScale = Vector2.one;
@@ -127,7 +140,14 @@ public class Player : MonoBehaviour
             //animator.SetTrigger("Jump");
 
             HandleScaleJump();
+            PlayJumpVFX();
         }
+    }
+
+    private void PlayJumpVFX()
+    {
+        if(jumpVFX != null)
+            jumpVFX.Play();
     }
 
     private void HandleScaleJump()
@@ -138,6 +158,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        IsGrounded();
         HandleJump();
         HandleMovement();
     }
