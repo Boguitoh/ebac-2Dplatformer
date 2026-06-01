@@ -3,7 +3,7 @@ using ebac.Core.Singleton;
 
 public class ItemManager : Singleton<ItemManager>
 {
-    public int coins;
+    public SO_Int coins;
 
     public static ItemManager Instance;
 
@@ -22,11 +22,11 @@ public class ItemManager : Singleton<ItemManager>
 
     private void Reset()
     {
-        coins = 0;
+        coins.value = 0;
     }
 
     public void AddCoins(int amount = 1)
     {
-        coins += amount;
+        coins.value += amount;
     }
 }
