@@ -8,14 +8,11 @@ public class AudioPlayHelper : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(keyCode))
-        {
             Play();
-        }
     }
 
-    public void Play()
+    void Play()
     {
         AudioSource.Play();
     }
-
 }
