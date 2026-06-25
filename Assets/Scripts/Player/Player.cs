@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 
     [Header("Setup")]
     public SOPlayerSetup SOPlayerSetup;
+    public AudioSource AudioJump;
 
     private float _currentSpeed;
     public Animator animator;
@@ -139,6 +140,7 @@ public class Player : MonoBehaviour
 
             //animator.SetTrigger("Jump");
 
+            AudioJump.Play();
             HandleScaleJump();
             PlayJumpVFX();
         }
